@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -14,12 +14,25 @@ const Login = () => {
   const onSubmit = (data, event) => {
     signIn(data.email, data.password)
       .then((result) => {
-        const user = result.user;
         toast.success("Login Successfully");
         navigate(from, { replace: true });
         event.target.reset();
       })
       .catch((error) => toast.error(error.message));
+  };
+
+  // Sign in with Google
+  const handlGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        toast.success(`Signin Successful ${user.displayName}`);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+      });
   };
 
   return (
@@ -68,7 +81,9 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider divide-accent text-white">OR</div>
-        <button className="btn btn-success w-full">LOGIN WITH GOOGLE</button>
+        <button onClick={handlGoogleSignIn} className="btn btn-success w-full">
+          LOGIN WITH GOOGLE
+        </button>
       </div>
     </div>
   );

@@ -1,18 +1,20 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
   const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { register, handleSubmit } = useForm();
 
+  // Create user with email and password
   const onSubmit = (data, event) => {
     createUser(data.email, data.password)
       .then((result) => {
-        const user = result.user;
         toast.success("User Created Successfully");
         const userDetails = {
           displayName: data.name,
@@ -28,6 +30,7 @@ const SignUp = () => {
       .catch((error) => toast.error(error.message));
   };
 
+  // Saved new users email and name in db
   const savedUser = (name, email, role) => {
     const user = {
       name,
@@ -54,7 +57,7 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        navigate(from, { replace: true });
         toast.success(`SignUp Successful ${user.displayName}`);
       })
       .catch((error) => {
