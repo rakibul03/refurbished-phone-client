@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data, event) => {
@@ -13,6 +16,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         toast.success("Login Successfully");
+        navigate(from, { replace: true });
         event.target.reset();
       })
       .catch((error) => toast.error(error.message));
