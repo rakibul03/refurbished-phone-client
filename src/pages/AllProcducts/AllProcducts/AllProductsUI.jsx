@@ -1,6 +1,6 @@
 import React from "react";
 
-const AllProductsUI = ({ product }) => {
+const AllProductsUI = ({ product, setBookProducts }) => {
   const {
     picture,
     name,
@@ -11,7 +11,7 @@ const AllProductsUI = ({ product }) => {
     posted_time,
   } = product;
   return (
-    <div className="mt-10 px-6">
+    <div className="mt-10 rounded-lg mx-6 bg-white">
       <div className="card lg:card-side shadow-xl ">
         <figure>
           <img src={picture} alt="Album" className="h-48 w-48" />
@@ -55,6 +55,7 @@ const AllProductsUI = ({ product }) => {
           </div>
           <div className="card-actions justify-start">
             <label
+              onClick={() => setBookProducts(product)}
               htmlFor="booking-modal"
               className="btn-sm rounded-md btn-primary pt-1 cursor-pointer"
             >
