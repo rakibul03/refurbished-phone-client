@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const { createUser, updateUser } = useContext(AuthContext);
 
   const { register, handleSubmit } = useForm();
@@ -18,12 +19,34 @@ const SignUp = () => {
         };
         updateUser(userDetails)
           .then(() => {
+            savedUser(data.name, data.email, data.role);
             toast.success("Name Updated");
             event.target.reset();
           })
           .catch((error) => toast.error(error.message));
       })
       .catch((error) => toast.error(error.message));
+  };
+
+  const savedUser = (name, email, role) => {
+    const user = {
+      name,
+      email,
+      role,
+    };
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/");
+      });
   };
 
   return (
@@ -69,6 +92,21 @@ const SignUp = () => {
               })}
               className="input input-bordered w-full max-w-xs"
             />
+          </div>
+
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text text-white mb-2 tracking-wider">
+                Create which type of account?
+              </span>
+            </label>
+            <select
+              {...register("role", { required: true })}
+              className="input input-bordered w-full max-w-xs"
+            >
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+            </select>
           </div>
 
           <input
