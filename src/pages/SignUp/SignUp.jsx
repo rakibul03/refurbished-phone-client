@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { createUser, updateUser } = useContext(AuthContext);
-
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (data, event) => {
     createUser(data.email, data.password)
       .then((result) => {
@@ -46,6 +46,20 @@ const SignUp = () => {
       .then((data) => {
         console.log(data);
         navigate("/");
+      });
+  };
+
+  // Sign in with Google
+  const handlGoogleSignUp = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success(`SignUp Successful ${user.displayName}`);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage);
       });
   };
 
@@ -122,7 +136,9 @@ const SignUp = () => {
           </Link>
         </p>
         <div className="divider divide-accent text-white">OR</div>
-        <button className="btn btn-success w-full">SIGNUP WITH GOOGLE</button>
+        <button onClick={handlGoogleSignUp} className="btn btn-success w-full">
+          SIGNUP WITH GOOGLE
+        </button>
       </div>
     </div>
   );
