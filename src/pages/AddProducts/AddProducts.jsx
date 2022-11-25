@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const AddProducts = () => {
+  const { user } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
   const handleAddProduct = (data, event) => {
     const productDetails = {
       category_id: data.categoryID,
+      seller_email: user.email,
       name: data.productName,
       picture: data.img,
       location: data.location,
@@ -15,10 +19,24 @@ const AddProducts = () => {
       used_time: data.yearOfUses,
       buying_years: data.yearOfBuy,
       post_time: new Date().getHours(),
+      isAvailabe: true,
       phone: data.phone,
       condition: data.condition,
     };
-    console.log(productDetails);
+
+    fetch("http://localhost:5000/add-products", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(productDetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Product Added Successfully");
+        }
+      });
   };
 
   return (

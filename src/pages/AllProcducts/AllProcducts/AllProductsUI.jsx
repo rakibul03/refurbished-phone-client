@@ -8,7 +8,7 @@ const AllProductsUI = ({ product, setBookProducts }) => {
     resale_price,
     orginal_price,
     used_time,
-    posted_time,
+    post_time,
   } = product;
   return (
     <div className="mt-10 rounded-lg mx-6 bg-white">
@@ -37,7 +37,7 @@ const AllProductsUI = ({ product, setBookProducts }) => {
             <div>
               <p className="font-bold tracking-wide">
                 <span className="text-sm text-gray-500">
-                  Posted {posted_time}
+                  Posted {post_time}
                 </span>
               </p>
 

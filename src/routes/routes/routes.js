@@ -10,6 +10,7 @@ import Dashboard from "../../pages/Dashboard/Dashboard";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import HomePage from "../../pages/HomePage/HomePage/HomePage";
 import Login from "../../pages/Login/Login";
+import MyProducts from "../../pages/MyProducts/MyProducts";
 import SignUp from "../../pages/SignUp/SignUp";
 import PrivateRoutes from "./PrivateRoutes";
 
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/add-products",
         element: <AddProducts />,
+      },
+      {
+        path: "/dashboard/my-products",
+        element: <MyProducts />,
       },
     ],
   },
