@@ -36,6 +36,7 @@ const SignUp = () => {
       name,
       email,
       role,
+      isVerifyed: false,
     };
 
     fetch("http://localhost:5000/users", {
@@ -47,8 +48,9 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        navigate("/");
+        if (data.acknowledged) {
+          navigate("/");
+        }
       });
   };
 
