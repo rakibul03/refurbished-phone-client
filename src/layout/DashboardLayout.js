@@ -9,6 +9,7 @@ const DashboardLayout = () => {
       <div className="flex justify-center space-x-6">
         <Link to="/dashboard/all-seller">All Seller</Link>
         <Link to="/dashboard/all-buyer">All Buyer</Link>
+        <Link to="/dashboard/add-products">Add Products</Link>
       </div>
       <Outlet />
     </>

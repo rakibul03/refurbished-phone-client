@@ -33,8 +33,8 @@ const BookingProducts = ({ bookProducts }) => {
           >
             ✕
           </label>
-          <div onSubmit={handleBooking} className="mt-8">
-            <form className="space-y-4">
+          <div className="mt-8">
+            <form onSubmit={handleBooking} className="space-y-4">
               <input
                 type="text"
                 name="userName"
