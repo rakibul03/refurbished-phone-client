@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const BookingProducts = ({ bookProducts }) => {
@@ -18,8 +19,21 @@ const BookingProducts = ({ bookProducts }) => {
       category_id,
       location,
       phone,
+      isBooking: true,
     };
-    console.log(booking);
+    fetch("http://localhost:5000/booking-products", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Item Booking Successfulty");
+        }
+      });
   };
 
   return (

@@ -1,6 +1,10 @@
-import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
 
 const AllProductsUI = ({ product, setBookProducts }) => {
+  const [seller, setSeller] = useState(null);
+
   const {
     picture,
     name,
@@ -9,7 +13,16 @@ const AllProductsUI = ({ product, setBookProducts }) => {
     orginal_price,
     used_time,
     post_time,
+    seller_email,
   } = product;
+
+  // Get seller details from db
+  useEffect(() => {
+    fetch(`http://localhost:5000/users/verify?email=${seller_email}`)
+      .then((res) => res.json())
+      .then((data) => setSeller(data));
+  }, [seller_email]);
+
   return (
     <div className="mt-10 rounded-lg mx-6 bg-white">
       <div className="card lg:card-side shadow-xl ">
@@ -48,7 +61,20 @@ const AllProductsUI = ({ product, setBookProducts }) => {
               </p>
               <p className="font-bold tracking-wide">
                 <span className="text-sm text-gray-500">
-                  Sell By Md Rakibul Hasan
+                  Sell By {seller?.name}{" "}
+                  {seller?.isVerifyed ? (
+                    <FontAwesomeIcon
+                      className="text-indigo-700 cursor-pointer"
+                      title="Not Verified"
+                      icon={faCircleCheck}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      className="cursor-pointer"
+                      title="Not Verified"
+                      icon={faCircleCheck}
+                    />
+                  )}
                 </span>
               </p>
             </div>
