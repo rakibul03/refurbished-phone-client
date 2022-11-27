@@ -53,7 +53,7 @@ const AllSeller = () => {
 
   return (
     <div>
-      <div className="container p-2 mx-auto sm:p-4 text-gray-100">
+      <div className="container p-2 mr-2 mx-auto sm:p-4 text-gray-100">
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
             <thead className="bg-gray-700">

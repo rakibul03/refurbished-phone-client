@@ -22,7 +22,6 @@ const BookingProducts = ({ bookProducts }) => {
       isBooking: true,
     };
 
-    console.log(booking);
     fetch("http://localhost:5000/booking-products", {
       method: "POST",
       headers: {

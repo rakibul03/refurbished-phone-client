@@ -22,7 +22,7 @@ const AddProducts = () => {
       buying_years: data.yearOfBuy,
       post_time: new Date().getHours(),
       isAvailabe: true,
-      isSold: false,
+      isPayed: false,
       showAd: false,
       phone: data.phone,
       condition: data.condition,
