@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const AddProducts = () => {
   const { user } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const handleAddProduct = (data, event) => {
     const productDetails = {
@@ -21,6 +23,7 @@ const AddProducts = () => {
       post_time: new Date().getHours(),
       isAvailabe: true,
       isSold: false,
+      showAd: false,
       phone: data.phone,
       condition: data.condition,
     };
@@ -36,6 +39,7 @@ const AddProducts = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Product Added Successfully");
+          navigate("/dashboard/my-products");
         }
       });
   };

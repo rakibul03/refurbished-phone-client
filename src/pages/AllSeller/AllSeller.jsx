@@ -30,6 +30,23 @@ const AllSeller = () => {
       });
   };
 
+  const handleVerify = (id) => {
+    fetch(`http://localhost:5000/users/seller/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: true }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          refetch();
+          toast.success("Seller verifed successfully");
+        }
+      });
+  };
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -70,7 +87,13 @@ const AllSeller = () => {
 
                   <td className="p-3">
                     <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
-                      <span>Pending</span>
+                      <button
+                        className="cursor-pointer"
+                        disabled={seller?.isVerifyed}
+                        onClick={() => handleVerify(seller._id)}
+                      >
+                        {seller?.isVerifyed ? "Verified" : "Pending"}
+                      </button>
                     </span>
                   </td>
                 </tr>

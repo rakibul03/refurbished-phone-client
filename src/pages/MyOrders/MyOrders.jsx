@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Spinner from "../Spinner/Spinner";
+import MyOrdersUI from "./MyOrdersUI";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -17,31 +18,17 @@ const MyOrders = () => {
     },
   });
 
-  console.log(myOrders);
-
   if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-10">
-      <div className="card bg-base-100 shadow-xl">
-        <figure className="px-10 pt-10">
-          <img
-            src="https://placeimg.com/400/225/arch"
-            alt="phone"
-            className="rounded-xl"
-          />
-        </figure>
-        <div className="card-body items-center text-center">
-          <h2 className="card-title">Phone</h2>
-          <p>
-            Price: <span>1000 Taka</span>
-          </p>
-          <div className="card-actions">
-            <button className="btn btn-sm btn-primary">Pay Now</button>
-          </div>
-        </div>
+    <div className="mt-12 ">
+      {/* <h1 className="text-xl font-semibold tracking-wider">Trending Ads</h1> */}
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ml-6">
+        {myOrders.map((order) => (
+          <MyOrdersUI key={order._id} order={order} />
+        ))}
       </div>
     </div>
   );

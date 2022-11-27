@@ -65,7 +65,7 @@ const AllProductsUI = ({ product, setBookProducts }) => {
                   {seller?.isVerifyed ? (
                     <FontAwesomeIcon
                       className="text-indigo-700 cursor-pointer"
-                      title="Not Verified"
+                      title="Verified"
                       icon={faCircleCheck}
                     />
                   ) : (

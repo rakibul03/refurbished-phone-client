@@ -1,8 +1,82 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const MyProductsUI = ({ product }) => {
-  const { name, orginal_price, resale_price, post_time, isAvailabe } = product;
+const MyProductsUI = ({ product, refetch }) => {
+  const {
+    _id,
+    name,
+    orginal_price,
+    resale_price,
+    post_time,
+    isAvailabe,
+    showAd,
+  } = product;
+
   const [productsStatus, setProductsStatus] = useState(isAvailabe);
+
+  const hanldeAd = (id) => {
+    fetch(`http://localhost:5000/ad/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: true }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          refetch();
+          toast.success("Advertise your products successfully");
+        }
+      });
+  };
+
+  const hanldeDelete = (id) => {
+    fetch(`http://localhost:5000/dashboard/my-products/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          refetch();
+          toast.success("Product deleted successfully");
+        }
+      });
+  };
+
+  const hanldeUpdateAd = (id) => {
+    if (!isAvailabe) {
+      fetch(`http://localhost:5000/stock/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status: true, ad: false }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            refetch();
+            toast.success("Product Restock");
+          }
+        });
+    } else {
+      fetch(`http://localhost:5000/stock/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status: false, ad: false }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            refetch();
+            toast.success("Product Slod Out");
+          }
+        });
+    }
+  };
 
   return (
     <div className="mt-10 rounded-lg mx-6 bg-white">
@@ -42,6 +116,7 @@ const MyProductsUI = ({ product }) => {
               <p className="flex items-center space-x-2">
                 <input
                   onChange={() => setProductsStatus(!productsStatus)}
+                  onClick={() => hanldeUpdateAd(_id)}
                   type="checkbox"
                   className="toggle toggle-xs text-sm text-gray-500  px-3"
                   checked={productsStatus}
@@ -55,13 +130,14 @@ const MyProductsUI = ({ product }) => {
                     Sold
                   </span>
                 )}
+                {/* {productsStatus ? "Available" : "Sold"} */}
               </p>
             </div>
           </div>
           <div className="grid grid-cols-2">
             <div className="card-actions justify-start">
               <label
-                htmlFor="booking-modal"
+                onClick={() => hanldeDelete(_id)}
                 className="px-2 py-1 font-semibold text-[12px] rounded-md bg-violet-400 text-gray-900 cursor-pointer"
               >
                 Delete Products
@@ -69,12 +145,13 @@ const MyProductsUI = ({ product }) => {
             </div>
             {productsStatus && (
               <div className="card-actions justify-start">
-                <label
-                  htmlFor="booking-modal"
+                <button
+                  onClick={() => hanldeAd(_id)}
+                  disabled={showAd}
                   className="px-2 py-1 font-semibold text-[12px] rounded-md bg-violet-400 text-gray-900 cursor-pointer"
                 >
-                  Advertise
-                </label>
+                  {showAd ? "Ad Running Already" : " Advertise"}
+                </button>
               </div>
             )}
           </div>

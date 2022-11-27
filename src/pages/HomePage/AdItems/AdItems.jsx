@@ -1,59 +1,38 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Spinner from "../../Spinner/Spinner";
+import AdItemsUI from "./AdItemsUI";
 
 const AdItems = () => {
+  const { data: adProducts = [], isLoading } = useQuery({
+    queryKey: ["adProducts"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/ad");
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="mt-12 ">
       <h1 className="text-xl font-semibold tracking-wider">Trending Ads</h1>
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="card bg-base-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img
-              src="https://i.ibb.co/P4QNngY/iphone-13-finish-unselect-gallery-2-202207-FMT-WHH-wid-1280-hei-492-fmt-p-jpg-qlt-80.jpg"
-              alt=""
-              className="rounded-xl"
-            />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">iPhone!</h2>
-            <p>Why Apple is the best place to buy iPhone</p>
-            <div className="card-actions">
-              <button className="btn btn-secondary">Buy Now</button>
-            </div>
-          </div>
+      {adProducts?.length !== 0 ? (
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {adProducts.map((adProduct) => (
+            <AdItemsUI key={adProduct._id} adProduct={adProduct} />
+          ))}
         </div>
-        <div className="card bg-base-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img
-              src="https://i.ibb.co/P4QNngY/iphone-13-finish-unselect-gallery-2-202207-FMT-WHH-wid-1280-hei-492-fmt-p-jpg-qlt-80.jpg"
-              alt=""
-              className="rounded-xl"
-            />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">iPhone!</h2>
-            <p>Why Apple is the best place to buy iPhone</p>
-            <div className="card-actions">
-              <button className="btn btn-secondary">Buy Now</button>
-            </div>
-          </div>
+      ) : (
+        <div>
+          <p className="text-center my-10 text-4xl tracking-widest font-semibold text-gray-500 uppercase">
+            No Add Campaing Running Right Now
+          </p>
         </div>
-        <div className="card bg-base-100 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img
-              src="https://i.ibb.co/P4QNngY/iphone-13-finish-unselect-gallery-2-202207-FMT-WHH-wid-1280-hei-492-fmt-p-jpg-qlt-80.jpg"
-              alt=""
-              className="rounded-xl"
-            />
-          </figure>
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">iPhone!</h2>
-            <p>Why Apple is the best place to buy iPhone</p>
-            <div className="card-actions">
-              <button className="btn btn-secondary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
