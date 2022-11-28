@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const BookingProducts = ({ bookProducts }) => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const { category_id, name, resale_price } = bookProducts;
 
@@ -22,7 +24,7 @@ const BookingProducts = ({ bookProducts }) => {
       isBooking: true,
     };
 
-    fetch("http://localhost:5000/booking-products", {
+    fetch("https://resale-used-products-server.vercel.app/booking-products", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -32,6 +34,7 @@ const BookingProducts = ({ bookProducts }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
+          navigate("/dashboard/my-orders");
           toast.success("Item Booking Successfulty");
         }
       });

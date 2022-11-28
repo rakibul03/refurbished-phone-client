@@ -28,7 +28,7 @@ const AddProducts = () => {
       condition: data.condition,
     };
 
-    fetch("http://localhost:5000/add-products", {
+    fetch("https://resale-used-products-server.vercel.app/add-products", {
       method: "POST",
       headers: {
         "content-type": "application/json",

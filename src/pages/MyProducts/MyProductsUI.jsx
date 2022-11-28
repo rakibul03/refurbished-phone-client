@@ -15,7 +15,7 @@ const MyProductsUI = ({ product, refetch }) => {
   const [productsStatus, setProductsStatus] = useState(isAvailabe);
 
   const hanldeAd = (id) => {
-    fetch(`http://localhost:5000/ad/${id}`, {
+    fetch(`https://resale-used-products-server.vercel.app/ad/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -32,9 +32,12 @@ const MyProductsUI = ({ product, refetch }) => {
   };
 
   const hanldeDelete = (id) => {
-    fetch(`http://localhost:5000/dashboard/my-products/${id}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://resale-used-products-server.vercel.app/dashboard/my-products/${id}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -46,7 +49,7 @@ const MyProductsUI = ({ product, refetch }) => {
 
   const hanldeUpdateAd = (id) => {
     if (!isAvailabe) {
-      fetch(`http://localhost:5000/stock/${id}`, {
+      fetch(`https://resale-used-products-server.vercel.app/stock/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -61,7 +64,7 @@ const MyProductsUI = ({ product, refetch }) => {
           }
         });
     } else {
-      fetch(`http://localhost:5000/stock/${id}`, {
+      fetch(`https://resale-used-products-server.vercel.app/stock/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

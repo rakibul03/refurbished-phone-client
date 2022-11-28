@@ -9,7 +9,9 @@ const AdItemsUI = ({ adProduct }) => {
 
   // Get seller details from db
   useEffect(() => {
-    fetch(`http://localhost:5000/users/verify?email=${seller_email}`)
+    fetch(
+      `https://resale-used-products-server.vercel.app/users/verify?email=${seller_email}`
+    )
       .then((res) => res.json())
       .then((data) => setSeller(data));
   }, [seller_email]);

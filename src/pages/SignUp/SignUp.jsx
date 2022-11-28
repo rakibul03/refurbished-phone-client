@@ -39,7 +39,7 @@ const SignUp = () => {
       isVerifyed: false,
     };
 
-    fetch("http://localhost:5000/users", {
+    fetch("https://resale-used-products-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

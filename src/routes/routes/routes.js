@@ -6,13 +6,14 @@ import AllBuyer from "../../pages/AllBuyer/AllBuyer";
 import AllProcducts from "../../pages/AllProcducts/AllProcducts/AllProcducts";
 import AllSeller from "../../pages/AllSeller/AllSeller";
 import Blog from "../../pages/Blog/Blog";
-import Dashboard from "../../pages/Dashboard/Dashboard";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 import HomePage from "../../pages/HomePage/HomePage/HomePage";
 import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
 import MyProducts from "../../pages/MyProducts/MyProducts";
 import SignUp from "../../pages/SignUp/SignUp";
+import AdminRoute from "../AdminRoute";
+import SellerRoute from "../SellerRoute";
 import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
@@ -41,7 +42,9 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(
+            `https://resale-used-products-server.vercel.app/category/${params.id}`
+          ),
       },
       {
         path: "/blog",
@@ -51,31 +54,51 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
     children: [
       {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
         path: "/dashboard/all-seller",
-        element: <AllSeller />,
+        element: (
+          <AdminRoute>
+            <AllSeller />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all-buyer",
-        element: <AllBuyer />,
+        element: (
+          <AdminRoute>
+            <AllBuyer />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/add-products",
-        element: <AddProducts />,
+        element: (
+          <SellerRoute>
+            <AddProducts />
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/my-products",
-        element: <MyProducts />,
+        element: (
+          <SellerRoute>
+            <MyProducts />
+          </SellerRoute>
+        ),
       },
       {
         path: "/dashboard/my-orders",
-        element: <MyOrders />,
+        element: (
+          <PrivateRoutes>
+            <MyOrders />
+          </PrivateRoutes>
+        ),
       },
     ],
   },
