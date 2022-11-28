@@ -1,8 +1,9 @@
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { handleReport } from "../../../utilis/handleReport";
 
-const AdItemsUI = ({ adProduct }) => {
+const AdItemsUI = ({ adProduct, setBookProducts }) => {
   const { name, location, phone, resale_price, orginal_price, seller_email } =
     adProduct;
   const [seller, setSeller] = useState(null);
@@ -48,7 +49,26 @@ const AdItemsUI = ({ adProduct }) => {
           )}
         </p>
       </div>
-      <button className="btn btn-secondary mx-10 mb-10">Buy Now</button>
+
+      <div className="flex mb-10 mx-auto gap-4">
+        <div className="card-actions">
+          <label
+            onClick={() => setBookProducts(adProduct)}
+            htmlFor="booking-modal"
+            className="btn rounded-md btn-secondary cursor-pointer"
+          >
+            Book Now
+          </label>
+        </div>
+        <div>
+          <p
+            onClick={() => handleReport(adProduct._id)}
+            className="btn btn-secondary"
+          >
+            Report To Admin
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

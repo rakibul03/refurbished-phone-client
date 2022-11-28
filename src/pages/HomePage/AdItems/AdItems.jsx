@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import BookingProducts from "../../AllProcducts/AllProcducts/BookingProducts";
 import Spinner from "../../Spinner/Spinner";
 import AdItemsUI from "./AdItemsUI";
 
 const AdItems = () => {
+  const [bookProducts, setBookProducts] = useState(null);
+
   const { data: adProducts = [], isLoading } = useQuery({
     queryKey: ["adProducts"],
     queryFn: async () => {
@@ -25,7 +28,11 @@ const AdItems = () => {
       {adProducts?.length !== 0 ? (
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {adProducts.map((adProduct) => (
-            <AdItemsUI key={adProduct._id} adProduct={adProduct} />
+            <AdItemsUI
+              key={adProduct._id}
+              adProduct={adProduct}
+              setBookProducts={setBookProducts}
+            />
           ))}
         </div>
       ) : (
@@ -35,6 +42,7 @@ const AdItems = () => {
           </p>
         </div>
       )}
+      {bookProducts && <BookingProducts bookProducts={bookProducts} />}
     </div>
   );
 };

@@ -11,6 +11,7 @@ import HomePage from "../../pages/HomePage/HomePage/HomePage";
 import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
 import MyProducts from "../../pages/MyProducts/MyProducts";
+import ReportedItems from "../../pages/ReportedItems/ReportedItems";
 import SignUp from "../../pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute";
 import SellerRoute from "../SellerRoute";
@@ -73,6 +74,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllBuyer />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/report",
+        element: (
+          <AdminRoute>
+            <ReportedItems />
           </AdminRoute>
         ),
       },

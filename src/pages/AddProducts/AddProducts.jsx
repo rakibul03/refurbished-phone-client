@@ -35,6 +35,7 @@ const AddProducts = () => {
       isAvailabe: true,
       isPayed: false,
       showAd: false,
+      isReported: false,
       phone: data.phone,
       condition: data.condition,
     };
@@ -147,6 +148,15 @@ const AddProducts = () => {
               {...register("yearOfBuy", {
                 required: "Year of used is required",
               })}
+              className="h-6 px-4 rounded-md input-bordered w-full max-w-xs"
+            />
+          </div>
+
+          <div className="form-control w-full max-w-xs">
+            <input
+              type="text"
+              placeholder="Products Description"
+              {...register("des")}
               className="h-6 px-4 rounded-md input-bordered w-full max-w-xs"
             />
           </div>

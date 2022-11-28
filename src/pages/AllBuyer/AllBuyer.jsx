@@ -70,7 +70,7 @@ const AllBuyer = () => {
                     </span>
                   </td>
 
-                  <td className="p-3">
+                  <td>
                     <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
                       <span>Make_Seller</span>
                     </span>

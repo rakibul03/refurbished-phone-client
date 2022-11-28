@@ -29,6 +29,12 @@ const DashboardLayout = () => {
             >
               All Buyer
             </Link>
+            <Link
+              className="bg-indigo-300 px-3 py-1 rounded-md"
+              to="/dashboard/report"
+            >
+              Reported Items
+            </Link>
           </>
         )}
 

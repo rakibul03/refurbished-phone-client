@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { format, formatDistance, formatRelative, subDays } from "date-fns";
-import enGB from "date-fns/locale/en-GB";
+import { handleReport } from "../../../utilis/handleReport";
 
 const AllProductsUI = ({ product, setBookProducts }) => {
   const [seller, setSeller] = useState(null);
@@ -82,15 +81,25 @@ const AllProductsUI = ({ product, setBookProducts }) => {
                 </span>
               </p>
             </div>
-          </div>
-          <div className="card-actions justify-start">
-            <label
-              onClick={() => setBookProducts(product)}
-              htmlFor="booking-modal"
-              className="btn-sm rounded-md btn-primary pt-1 cursor-pointer"
-            >
-              Book Now
-            </label>
+            <div className="grid grid-cols-2">
+              <div className="card-actions">
+                <label
+                  onClick={() => setBookProducts(product)}
+                  htmlFor="booking-modal"
+                  className="btn btn-sm rounded-md btn-primary cursor-pointer"
+                >
+                  Book Now
+                </label>
+              </div>
+              <div>
+                <p
+                  onClick={() => handleReport(product._id)}
+                  className="btn btn-sm rounded-md btn-primary cursor-pointer"
+                >
+                  Report To Admin
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
