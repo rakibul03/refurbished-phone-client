@@ -10,6 +10,7 @@ const MyProductsUI = ({ product, refetch }) => {
     post_time,
     isAvailabe,
     showAd,
+    picture,
   } = product;
 
   const [productsStatus, setProductsStatus] = useState(isAvailabe);
@@ -86,7 +87,7 @@ const MyProductsUI = ({ product, refetch }) => {
       <div className="card lg:card-side shadow-xl">
         <figure>
           <img
-            src="https://i.ibb.co/5jjCd2V/Apple-i-Phone-14.jpg"
+            src={picture}
             alt="Album"
             className="h-36 w-36 mt-8 sm:mt-0 sm:ml-4 shadow-lg rounded-lg"
           />

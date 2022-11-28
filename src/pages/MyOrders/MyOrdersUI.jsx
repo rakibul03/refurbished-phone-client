@@ -22,7 +22,7 @@ const MyOrdersUI = ({ order }) => {
         <p>Phone: {phone}</p>
         <p>Products Price: {reaslePrice} Taka</p>
       </div>
-      <button className="btn btn-secondary mx-10 mb-10">Buy Now</button>
+      <button className="btn btn-secondary mx-10 mb-10">Pay Now</button>
     </div>
   );
 };

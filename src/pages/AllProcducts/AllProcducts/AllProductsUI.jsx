@@ -59,7 +59,7 @@ const AllProductsUI = ({ product, setBookProducts }) => {
 
               <p className="font-bold tracking-wide">
                 <span className="text-sm text-gray-500">
-                  Total Used {used_time}
+                  Total Used {used_time} Years
                 </span>
               </p>
               <p className="font-bold tracking-wide">
