@@ -9,6 +9,17 @@ const AddProducts = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
+  let date = new Date();
+  let format = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  const post_date = date.toLocaleTimeString("en-us", format);
+
   const handleAddProduct = (data, event) => {
     const productDetails = {
       category_id: data.categoryID,
@@ -20,7 +31,7 @@ const AddProducts = () => {
       resale_price: data.productResalePrice,
       used_time: data.yearOfUses,
       buying_years: data.yearOfBuy,
-      post_time: new Date().getHours(),
+      post_time: post_date,
       isAvailabe: true,
       isPayed: false,
       showAd: false,

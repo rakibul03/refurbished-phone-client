@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
+import { format, formatDistance, formatRelative, subDays } from "date-fns";
+import enGB from "date-fns/locale/en-GB";
 
 const AllProductsUI = ({ product, setBookProducts }) => {
   const [seller, setSeller] = useState(null);
@@ -52,7 +54,7 @@ const AllProductsUI = ({ product, setBookProducts }) => {
             <div>
               <p className="font-bold tracking-wide">
                 <span className="text-sm text-gray-500">
-                  Posted {post_time}
+                  Post Date And Time: {post_time}
                 </span>
               </p>
 

@@ -112,7 +112,7 @@ const MyProductsUI = ({ product, refetch }) => {
             <div>
               <p className="font-bold tracking-wide">
                 <span className="text-sm text-gray-500">
-                  Posted: {post_time}
+                  Post Date And Time: {post_time}
                 </span>
               </p>
 

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Spinner from "../Spinner/Spinner";
 import MyProductsUI from "./MyProductsUI";
